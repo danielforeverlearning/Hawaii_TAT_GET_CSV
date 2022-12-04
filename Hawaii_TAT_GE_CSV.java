@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class Hawaii_TAT_GC_CSV  { 
+public class Hawaii_TAT_GE_CSV  { 
 		
 	public static void main(String s[]) {
 		ArrayList<Booking> mybookings = new ArrayList<Booking>();
@@ -14,11 +14,15 @@ public class Hawaii_TAT_GC_CSV  {
 		
 		boolean done = false;
 		while (!done) {
-			boolean choice_enter_booking = myinput.GetMainMenuChoice();
-			if (choice_enter_booking) {
-				Booking mybooking = myinput.GetBooking();
-				if (mybooking != null)
-					mybookings.add(mybooking);
+			UserInput.Choice choice = myinput.GetMainMenuChoice();
+			if (choice == UserInput.Choice.ENTER_BOOKING) {
+				Booking tempbook = myinput.GetBooking();
+				if (tempbook != null)
+					mybookings.add(tempbook);
+			}
+			else if (choice == UserInput.Choice.EXPORT_CSV) {
+				CSV_Handler myhandler = new CSV_Handler();
+				myhandler.ExportCSV(mybookings);
 			}
 			else
 				done = true;
