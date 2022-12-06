@@ -25,10 +25,29 @@ public class Booking {
     private double  TAT;
 	private double  GET;
 	
-	public static ExportCSV(ArrayList<Booking> mybookings) {
+	public void Print() {
+		System.out.println("Unit       = " + Unit);
+		System.out.println("ID         = " + ID);
+		System.out.println("Start_date = " + Start_date);
+		System.out.println("End_date   = " + End_date);
+		System.out.println("Income     = " + Income);
+		System.out.println("Mgmt_fee   = " + Mgmt_fee);
+		System.out.println("TAT_1      = " + TAT_1);
+		System.out.println("TAT_2      = " + TAT_2);
+		System.out.println("GE_1       = " + GE_1);
+		System.out.println("GE_2       = " + GE_2);
+		System.out.println("--------------------------------------");
+		System.out.println("NetIncome        = " + NetIncome);
+		System.out.println("TAT_Gross_Income = " + TAT_Gross_Income);
+		System.out.println("GET_Gross_Income = " + GET_Gross_Income);
+		System.out.println("TAT              = " + TAT);
+		System.out.println("GET              = " + GET);
+	}
+	
+	public static boolean ExportCSV(ArrayList<Booking> mybookings) {
 		try {
 			FileWriter myWriter = new FileWriter("output.csv");
-			myWriter.write("UNIT,ID,\"START DATE\",\"END DATE\",TAT_1,TAT_2,GE_1,GE_2,MGMT_FEE,INCOME,NET_INCOME,TAT_Gross_Income,GET_Gross_Income,TAT,GET");
+			myWriter.write("UNIT,ID,\"START DATE\",\"END DATE\",TAT_1,TAT_2,GE_1,GE_2,MGMT_FEE,INCOME,NET_INCOME,TAT_Gross_Income,GET_Gross_Income,TAT,GET\n");
 			
 			for (int ii=0; ii < mybookings.size(); ii++) {
 				Booking tempbook = mybookings.get(ii);
@@ -38,10 +57,12 @@ public class Booking {
 							   tempbook.TAT_Gross_Income + "," + tempbook.GET_Gross_Income + "," + tempbook.TAT + "," + tempbook.GET + "\n");
 			}
 			myWriter.close();
+			return true;
 		}
 		catch (IOException ex) {
 			System.out.println("class Booking method ExportCSV: An exception occurred!");
 			ex.printStackTrace();
+			return false;
 		}
 	}
 

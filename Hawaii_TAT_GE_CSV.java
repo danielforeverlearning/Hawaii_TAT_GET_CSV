@@ -17,20 +17,23 @@ public class Hawaii_TAT_GE_CSV  {
 			UserInput.Choice choice = myinput.GetMainMenuChoice();
 			if (choice == UserInput.Choice.ENTER_BOOKING) {
 				Booking tempbook = myinput.GetBooking();
-				if (tempbook != null)
+				if (tempbook != null) {
 					mybookings.add(tempbook);
+					tempbook.Print();
+				}
 			}
 			else if (choice == UserInput.Choice.EXPORT_CSV) {
-				CSV_Handler myhandler = new CSV_Handler();
-				myhandler.ExportCSV(mybookings);
+				boolean success = Booking.ExportCSV(mybookings);
+				if (success)
+					System.out.println("Export CSV file success");
+				else {
+					System.out.println("Export CSV file failed");
+					done = true;
+				}
 			}
 			else
-				done = true;
-			
+				done = true;	
 		}
-		
-		//final processing
-		
     }//main
 }//class
 
